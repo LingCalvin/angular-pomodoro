@@ -1,0 +1,3 @@
+<app-clock-face [timer]="timer"></app-clock-face>
+<app-timer-controls (started)="timer.start()" (paused)="timer.pause()"
+  (stopped)="timer.stop()"></app-timer-controls>

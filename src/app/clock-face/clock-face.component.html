@@ -1,0 +1,5 @@
+<ng-container *ngIf="timer.timer$ | async as timeRemaining; else initial">
+  {{timeRemaining | date : "mm:ss"}}
+</ng-container>
+
+<ng-template #initial>{{timer.duration | date : "mm:ss"}}</ng-template>

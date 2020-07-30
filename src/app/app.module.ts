@@ -7,6 +7,7 @@ import { CountdownComponent } from './countdown/countdown.component';
 import { ClockFaceComponent } from './clock-face/clock-face.component';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
 import { TimerControlsComponent } from './timer-controls/timer-controls.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,11 +15,12 @@ import { TimerControlsComponent } from './timer-controls/timer-controls.componen
     CountdownComponent,
     ClockFaceComponent,
     PomodoroComponent,
-    TimerControlsComponent,
+    TimerControlsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

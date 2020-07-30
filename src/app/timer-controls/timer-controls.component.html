@@ -1,3 +1,9 @@
-<button (click)="started.emit()">Play</button>
-<button (click)="paused.emit()">Pause</button>
-<button (click)="stopped.emit()">Stop</button>
+<button mat-fab (click)="started.emit()">
+  <mat-icon>play_arrow</mat-icon>
+</button>
+<button mat-fab (click)="paused.emit()">
+  <mat-icon>pause</mat-icon>
+</button>
+<button mat-fab (click)="stopped.emit()">
+  <mat-icon>stop</mat-icon>
+</button>

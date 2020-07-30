@@ -1,5 +1,21 @@
+<!--
+  NOTE: The text of the timer gets pushed offscreen when the font size is large
+  and it's not paired with an element like mat-progress-spinner.
+-->
+<!-- NOTE: Does not handle times above 59 minutes and 59 seconds. -->
 <ng-container *ngIf="timer.timer$ | async as timeRemaining; else initial">
-  {{timeRemaining | date : "mm:ss"}}
+  <mat-progress-spinner [value]="timeRemaining / timer.duration * 100"
+    [diameter]="192" [strokeWidth]="8">
+  </mat-progress-spinner>
+  <div>
+    {{timeRemaining | date : "mm:ss"}}
+  </div>
 </ng-container>
 
-<ng-template #initial>{{timer.duration | date : "mm:ss"}}</ng-template>
+<ng-template #initial>
+  <mat-progress-spinner [value]="100" [diameter]="192" [strokeWidth]="8">
+  </mat-progress-spinner>
+  <div>
+    {{timer.duration | date : "mm:ss"}}
+  </div>
+</ng-template>

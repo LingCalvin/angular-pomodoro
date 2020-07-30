@@ -1,0 +1,13 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  font-size: 64px;
+}
+
+mat-progress-spinner,
+div {
+  grid-area: 1 / 1 / 1 / 1;
+}

@@ -13,4 +13,35 @@
     <mat-slide-toggle [checked]="notificationsEnabled"
       (change)="handleNotificationToggle($event)"></mat-slide-toggle>
   </mat-list-item>
+
+  <mat-divider></mat-divider>
+
+  <div matSubheader>Intervals</div>
+
+  <mat-list-item>
+    <span>Work Session Length</span>
+    <span class="spacer"></span>
+    <mat-form-field color="accent">
+      <input matInput type="number" min="0" max="215999999"
+        [formControl]="workSessionLengthControl">
+    </mat-form-field>
+  </mat-list-item>
+
+  <mat-list-item>
+    <span>Short Break Length</span>
+    <span class="spacer"></span>
+    <mat-form-field color="accent">
+      <input matInput type="number" min="0" max="215999999"
+        [formControl]="shortBreakLengthControl">
+    </mat-form-field>
+  </mat-list-item>
+
+  <mat-list-item>
+    <span>Long Break Length</span>
+    <span class="spacer"></span>
+    <mat-form-field color="accent">
+      <input matInput type="number" min="0" max="215999999"
+        [formControl]="longBreakLengthControl">
+    </mat-form-field>
+  </mat-list-item>
 </mat-list>

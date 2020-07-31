@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CountdownTimer } from '../countdown-timer';
 import { SessionService } from '../session.service';
 import { SessionSetting } from '../session-setting.enum';
-import { toMilliseconds } from '../to-milliseconds';
 import { NotificationService } from '../notification.service';
+import { SettingsService } from '../settings.service';
+import { Setting } from '../setting.enum';
 
 @Component({
   selector: 'app-pomodoro',
@@ -17,20 +18,20 @@ export class PomodoroComponent implements OnInit {
   longBreakTimer: CountdownTimer;
   activeTabIndex = 0;
 
-  constructor(private notifier: NotificationService, private session: SessionService) {
+  constructor(private notifier: NotificationService, private session: SessionService, private settings: SettingsService) {
     this.handleWorkTimerComplete = this.handleWorkTimerComplete.bind(this);
     this.handleShortBreakTimerComplete = this.handleShortBreakTimerComplete.bind(this);
     this.handleLongBreakTimerComplete = this.handleShortBreakTimerComplete.bind(this);
   }
 
   ngOnInit(): void {
-    this.workTimer = new CountdownTimer(toMilliseconds({ minutes: 25 }));
+    this.workTimer = new CountdownTimer(this.settings.get(Setting.WorkLength));
     this.workTimer.complete.subscribe(this.handleWorkTimerComplete);
 
-    this.shortBreakTimer = new CountdownTimer(toMilliseconds({ minutes: 5 }));
+    this.shortBreakTimer = new CountdownTimer(this.settings.get(Setting.ShortBreakLength));
     this.shortBreakTimer.complete.subscribe(this.handleShortBreakTimerComplete);
 
-    this.longBreakTimer = new CountdownTimer(toMilliseconds({ minutes: 15 }));
+    this.longBreakTimer = new CountdownTimer(this.settings.get(Setting.LongBreakLength));
     this.longBreakTimer.complete.subscribe(this.handleLongBreakTimerComplete);
   }
 

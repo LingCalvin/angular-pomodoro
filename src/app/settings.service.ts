@@ -26,5 +26,7 @@ export class SettingsService {
   fillEmptyWithDefaults(): void {
     this.get(Setting.WorkLength, toMilliseconds({ minutes: 25 }));
     this.get(Setting.ShortBreakLength, toMilliseconds({ minutes: 5 }));
+    this.get(Setting.LongBreakLength, toMilliseconds({ minutes: 15 }));
+    this.get(Setting.EnableNotifications, false);
   }
 }

@@ -1,7 +1,12 @@
 <mat-toolbar color="primary">
   <span>Pomodoro</span>
   <span class="spacer"></span>
-  <button mat-icon-button>
+  <button mat-icon-button [mat-menu-trigger-for]="menu">
     <mat-icon>more_vert</mat-icon>
   </button>
 </mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <a routerLink="/settings" mat-menu-item>Settings</a>
+  <button mat-menu-item>About</button>
+</mat-menu>

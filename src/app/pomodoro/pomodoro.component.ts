@@ -3,6 +3,7 @@ import { CountdownTimer } from '../countdown-timer';
 import { SessionService } from '../session.service';
 import { SessionSetting } from '../session-setting.enum';
 import { toMilliseconds } from '../to-milliseconds';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-pomodoro',
@@ -16,7 +17,7 @@ export class PomodoroComponent implements OnInit {
   longBreakTimer: CountdownTimer;
   activeTabIndex = 0;
 
-  constructor(private session: SessionService) {
+  constructor(private notifier: NotificationService, private session: SessionService) {
     this.handleWorkTimerComplete = this.handleWorkTimerComplete.bind(this);
     this.handleShortBreakTimerComplete = this.handleShortBreakTimerComplete.bind(this);
     this.handleLongBreakTimerComplete = this.handleShortBreakTimerComplete.bind(this);
@@ -34,6 +35,7 @@ export class PomodoroComponent implements OnInit {
   }
 
   handleWorkTimerComplete(): void {
+    this.notifier.sendNotification('Work session completed');
     this.workTimer.stop();
     this.incrementPomodoroCount();
     const numPomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0);
@@ -45,11 +47,13 @@ export class PomodoroComponent implements OnInit {
   }
 
   handleShortBreakTimerComplete(): void {
+    this.notifier.sendNotification('Break is over');
     this.shortBreakTimer.stop();
     this.setWorkTabActive();
   }
 
   handleLongBreakTimerComplete(): void {
+    this.notifier.sendNotification('Break is over');
     this.longBreakTimer.stop();
     this.setWorkTabActive();
   }

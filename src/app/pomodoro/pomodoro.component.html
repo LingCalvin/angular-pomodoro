@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="center">
+<mat-tab-group mat-align-tabs="center" [(selectedIndex)]="activeTabIndex">
   <mat-tab label="Work">
     <app-countdown [timer]="workTimer"></app-countdown>
   </mat-tab>

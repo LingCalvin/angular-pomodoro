@@ -14,6 +14,7 @@ export class PomodoroComponent implements OnInit {
   workTimer: CountdownTimer;
   shortBreakTimer: CountdownTimer;
   longBreakTimer: CountdownTimer;
+  activeTabIndex = 0;
 
   constructor(private session: SessionService) {
     this.handleWorkTimerComplete = this.handleWorkTimerComplete.bind(this);
@@ -37,21 +38,31 @@ export class PomodoroComponent implements OnInit {
     this.incrementPomodoroCount();
     const numPomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0);
     if (numPomodoros % 4 === 0) {
+      this.setLongBreakTabActive();
     } else {
+      this.setShortBreakTabActive();
     }
   }
 
   handleShortBreakTimerComplete(): void {
     this.shortBreakTimer.stop();
+    this.setWorkTabActive();
   }
 
   handleLongBreakTimerComplete(): void {
     this.longBreakTimer.stop();
+    this.setWorkTabActive();
   }
 
   incrementPomodoroCount(): void {
     const pomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0) + 1;
     this.session.set(SessionSetting.NumberOfPomodoros, pomodoros);
   }
+
+  setWorkTabActive(): void { this.activeTabIndex = 0; }
+
+  setShortBreakTabActive(): void { this.activeTabIndex = 1; }
+
+  setLongBreakTabActive(): void { this.activeTabIndex = 2; }
 
 }

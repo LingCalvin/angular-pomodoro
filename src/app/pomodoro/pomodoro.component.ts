@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CountdownTimer } from '../countdown-timer';
 import { SessionService } from '../session.service';
 import { SessionSetting } from '../session-setting.enum';
@@ -16,9 +16,14 @@ export class PomodoroComponent implements OnInit {
   workTimer: CountdownTimer;
   shortBreakTimer: CountdownTimer;
   longBreakTimer: CountdownTimer;
-  activeTabIndex = 0;
+  activeTabIndex: number | null;
 
-  constructor(private notifier: NotificationService, private session: SessionService, private settings: SettingsService) {
+  constructor(
+    private notifier: NotificationService,
+    private session: SessionService,
+    private settings: SettingsService,
+    private changeDetector: ChangeDetectorRef
+  ) {
     this.handleWorkTimerComplete = this.handleWorkTimerComplete.bind(this);
     this.handleShortBreakTimerComplete = this.handleShortBreakTimerComplete.bind(this);
     this.handleLongBreakTimerComplete = this.handleShortBreakTimerComplete.bind(this);
@@ -64,10 +69,19 @@ export class PomodoroComponent implements OnInit {
     this.session.set(SessionSetting.NumberOfPomodoros, pomodoros);
   }
 
-  setWorkTabActive(): void { this.activeTabIndex = 0; }
+  setWorkTabActive(): void {
+    this.activeTabIndex = 0;
+    this.changeDetector.detectChanges();
+  }
 
-  setShortBreakTabActive(): void { this.activeTabIndex = 1; }
+  setShortBreakTabActive(): void {
+    this.activeTabIndex = 1;
+    this.changeDetector.detectChanges();
+  }
 
-  setLongBreakTabActive(): void { this.activeTabIndex = 2; }
+  setLongBreakTabActive(): void {
+    this.activeTabIndex = 2;
+    this.changeDetector.detectChanges();
+  }
 
 }

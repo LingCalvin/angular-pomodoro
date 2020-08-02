@@ -41,7 +41,7 @@ export class PomodoroComponent implements OnInit {
   }
 
   handleWorkTimerComplete(): void {
-    this.notifier.sendNotification('Work session completed');
+    this.notifier.sendNotificationIfDesired('Work session completed');
     this.workTimer.stop();
     this.incrementPomodoroCount();
     const numPomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0);
@@ -53,13 +53,13 @@ export class PomodoroComponent implements OnInit {
   }
 
   handleShortBreakTimerComplete(): void {
-    this.notifier.sendNotification('Break is over');
+    this.notifier.sendNotificationIfDesired('Break is over');
     this.shortBreakTimer.stop();
     this.setWorkTabActive();
   }
 
   handleLongBreakTimerComplete(): void {
-    this.notifier.sendNotification('Break is over');
+    this.notifier.sendNotificationIfDesired('Break is over');
     this.longBreakTimer.stop();
     this.setWorkTabActive();
   }

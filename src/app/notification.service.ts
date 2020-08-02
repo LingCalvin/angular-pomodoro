@@ -14,18 +14,21 @@ export class NotificationService {
   }
 
   sendNotification(title: string, options?: NotificationOptions): void {
-    if (this.settings.get<boolean>(Setting.EnableNotifications)) {
       this.requestPermission().then((perm) => {
         if (perm === 'granted') {
           const notification = new Notification(title, options);
         }
       });
-    }
   }
 
-  sendNotificationIfHidden(title: string, options?: NotificationOptions): void {
-    console.log(document.hidden);
-    if (document.hidden) {
+  sendNotificationIfDesired(title: string, options?: NotificationOptions): void {
+    if (!this.settings.get<boolean>(Setting.EnableNotifications)) {
+      return;
+    }
+
+    if (!this.settings.get<boolean>(Setting.OnlyShowNotificationsIfHidden)) {
+      this.sendNotification(title, options);
+    } else if (document.hidden) {
       this.sendNotification(title, options);
     }
   }

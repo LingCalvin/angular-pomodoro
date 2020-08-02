@@ -14,34 +14,44 @@
       (change)="handleNotificationToggle($event)"></mat-slide-toggle>
   </mat-list-item>
 
+  <mat-list-item>
+    Show notifications only if hidden
+    <span class="spacer"></span>
+    <mat-slide-toggle [formControl]="onlyShowNotificationsIfHiddenControl">
+    </mat-slide-toggle>
+  </mat-list-item>
+
   <mat-divider></mat-divider>
 
   <div matSubheader>Intervals</div>
 
   <mat-list-item>
-    <span>Work Session Length</span>
+    <span>Work session length</span>
     <span class="spacer"></span>
     <mat-form-field color="accent">
-      <input matInput type="number" min="0" max="215999999"
+      <input matInput type="number" min="0" [max]="maxTime"
         [formControl]="workSessionLengthControl">
+      <mat-hint>Minutes</mat-hint>
     </mat-form-field>
   </mat-list-item>
 
   <mat-list-item>
-    <span>Short Break Length</span>
+    <span>Short break length</span>
     <span class="spacer"></span>
     <mat-form-field color="accent">
-      <input matInput type="number" min="0" max="215999999"
+      <input matInput type="number" min="0" [max]="maxTime"
         [formControl]="shortBreakLengthControl">
+      <mat-hint>Minutes</mat-hint>
     </mat-form-field>
   </mat-list-item>
 
   <mat-list-item>
-    <span>Long Break Length</span>
+    <span>Long break length</span>
     <span class="spacer"></span>
     <mat-form-field color="accent">
-      <input matInput type="number" min="0" max="215999999"
+      <input matInput type="number" min="0" [max]="maxTime"
         [formControl]="longBreakLengthControl">
+      <mat-hint>Minutes</mat-hint>
     </mat-form-field>
   </mat-list-item>
 </mat-list>

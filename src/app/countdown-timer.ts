@@ -1,4 +1,4 @@
-import { Subject, EMPTY, Observable, interval } from 'rxjs';
+import { Subject, EMPTY, Observable, interval, BehaviorSubject } from 'rxjs';
 import { switchMap, scan, takeWhile, map, timeInterval, finalize, endWith } from 'rxjs/operators';
 import { EventEmitter } from '@angular/core';
 
@@ -7,6 +7,7 @@ export class CountdownTimer {
     duration: number;
     timer$: Observable<number>;
     complete = new EventEmitter<void>();
+    private stateSubject = new BehaviorSubject<'running' | 'paused' | 'reset'>('reset');
     private pause$: Subject<boolean>;
     private interval$: Observable<number>;
     private hasRun = false;
@@ -26,10 +27,12 @@ export class CountdownTimer {
     start(): void {
         this.hasRun = true;
         this.pause$.next(false);
+        this.stateSubject.next('running');
     }
 
     pause(): void {
         this.pause$.next(true);
+        this.stateSubject.next('paused');
     }
 
     stop(): void {
@@ -45,10 +48,15 @@ export class CountdownTimer {
                 this.hasRun = false;
             })
         );
+        this.stateSubject.next('reset');
     }
 
     setDuration(duration: number): void {
         this.duration = duration;
+    }
+
+    getState(): Observable<'running' | 'paused' | 'reset'> {
+        return this.stateSubject.asObservable();
     }
 
 }

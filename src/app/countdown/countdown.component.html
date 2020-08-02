@@ -1,3 +1,6 @@
 <app-clock-face [timer]="timer"></app-clock-face>
-<app-timer-controls (started)="timer.start()" (paused)="timer.pause()"
-  (stopped)="timer.stop()"></app-timer-controls>
+<ng-container *ngIf="timer.getState() | async as status">
+  <app-timer-controls (started)="timer.start()" (paused)="timer.pause()"
+    (stopped)="timer.stop()" [showPlay]="status !== 'running'"
+    [showPause]="status ==='running'"></app-timer-controls>
+</ng-container>

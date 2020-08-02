@@ -1,9 +1,9 @@
-<button mat-fab (click)="started.emit()">
+<button mat-fab *ngIf="showPlay" (click)="started.emit()">
   <mat-icon>play_arrow</mat-icon>
 </button>
-<button mat-fab (click)="paused.emit()">
+<button mat-fab *ngIf="showPause" (click)="paused.emit()">
   <mat-icon>pause</mat-icon>
 </button>
-<button mat-fab (click)="stopped.emit()">
+<button mat-fab *ngIf="showStop" (click)="stopped.emit()">
   <mat-icon>stop</mat-icon>
 </button>

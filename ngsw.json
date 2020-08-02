@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1596342272738,
+  "timestamp": 1596342536747,
   "index": "/angular-pomodoro/index.html",
   "assetGroups": [
     {
@@ -51,10 +51,10 @@
     "/angular-pomodoro/assets/icons/icon-72x72.png": "4d689b8bc6307bcf30d8cadc53aa48fd88a59920",
     "/angular-pomodoro/assets/icons/icon-96x96.png": "35eb226485a5b1285d3221df8dbc0a3d750b1606",
     "/angular-pomodoro/favicon.ico": "885741bae6733f03cb55498466cfb1c3b8c139d6",
-    "/angular-pomodoro/index.html": "51acd6dc85578f3eb777733b57b6cb89bc2ad7dd",
+    "/angular-pomodoro/index.html": "2c5d054ba45b5020616c5356369cd146ac3e585f",
     "/angular-pomodoro/main-es2015.66381ca21c7133b56bc7.js": "33ab3a8a7671602a49f575c06331792f386b6a1d",
     "/angular-pomodoro/main-es5.66381ca21c7133b56bc7.js": "7a79812b6b9ada93cef0220b06befd2b7c9145b3",
-    "/angular-pomodoro/manifest.webmanifest": "e1edf1dc2d4c7996da18bcf0c894c2ccb36fb63e",
+    "/angular-pomodoro/manifest.webmanifest": "e48d19bbd712bcf74b662196cd376631deb1d2f9",
     "/angular-pomodoro/polyfills-es2015.f332a089ad1600448873.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
     "/angular-pomodoro/polyfills-es5.177e85a9724683782539.js": "8aa26ea87b9958c6bd13b7c257c0e9940438e684",
     "/angular-pomodoro/runtime-es2015.0dae8cbc97194c7caed4.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",

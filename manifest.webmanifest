@@ -1,7 +1,7 @@
 {
-  "name": "angular-pomodoro",
-  "short_name": "angular-pomodoro",
-  "theme_color": "#1976d2",
+  "name": "Pomodoro",
+  "short_name": "Pomodoro",
+  "theme_color": "#f44336",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",

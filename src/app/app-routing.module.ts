@@ -6,8 +6,9 @@ import { SettingsComponent } from './settings/settings.component';
 
 
 const routes: Routes = [
-  { path: '', component: IndexComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: '', component: IndexComponent, pathMatch: 'full' },
+  { path: '**', redirectTo: ''},
 ];
 
 @NgModule({

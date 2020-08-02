@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1596382247145,
+  "timestamp": 1596382566549,
   "index": "/angular-pomodoro/index.html",
   "assetGroups": [
     {
@@ -56,7 +56,7 @@
     "/angular-pomodoro/index.html": "77d2194f7af6fb79bd9f4c8e19923eb1133e1599",
     "/angular-pomodoro/main-es2015.3c9b7d38cb691d778e80.js": "b32e2ad3b81eb1969f20cfdb69abe865dca136e9",
     "/angular-pomodoro/main-es5.3c9b7d38cb691d778e80.js": "51519616c44bb1146086c38ac4a2545d8f101dd2",
-    "/angular-pomodoro/manifest.webmanifest": "4fcf6b49450cf826db19f23786e9c190dc016583",
+    "/angular-pomodoro/manifest.webmanifest": "d508279c9cf2a469fbb9aa06b5c3c2a7b41ef02a",
     "/angular-pomodoro/polyfills-es2015.f332a089ad1600448873.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
     "/angular-pomodoro/polyfills-es5.177e85a9724683782539.js": "8aa26ea87b9958c6bd13b7c257c0e9940438e684",
     "/angular-pomodoro/runtime-es2015.0dae8cbc97194c7caed4.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",

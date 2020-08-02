@@ -14,6 +14,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { TimerControlsComponent } from './timer-controls/timer-controls.component';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -42,6 +43,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     FormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

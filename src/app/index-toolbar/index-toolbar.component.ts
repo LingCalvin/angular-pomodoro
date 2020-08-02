@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AboutDialogueComponent } from '../about-dialogue/about-dialogue.component';
 
 @Component({
   selector: 'app-index-toolbar',
   templateUrl: './index-toolbar.component.html',
   styleUrls: ['./index-toolbar.component.css']
 })
-export class IndexToolbarComponent implements OnInit {
+export class IndexToolbarComponent {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  showAboutDialog(): void {
+    this.dialog.open(AboutDialogueComponent);
   }
 
 }

@@ -8,5 +8,5 @@
 
 <mat-menu #menu="matMenu">
   <a routerLink="/settings" mat-menu-item>Settings</a>
-  <button mat-menu-item>About</button>
+  <button mat-menu-item (click)="showAboutDialog()">About</button>
 </mat-menu>

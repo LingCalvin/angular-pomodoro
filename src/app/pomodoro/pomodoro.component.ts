@@ -1,87 +1,54 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CountdownTimer } from '../countdown-timer';
-import { SessionService } from '../session.service';
-import { SessionSetting } from '../session-setting.enum';
-import { NotificationService } from '../notification.service';
-import { SettingsService } from '../settings.service';
-import { Setting } from '../setting.enum';
+import { PomodoroService } from '../pomodoro.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pomodoro',
   templateUrl: './pomodoro.component.html',
   styleUrls: ['./pomodoro.component.css']
 })
-export class PomodoroComponent implements OnInit {
+export class PomodoroComponent implements OnInit, OnDestroy {
 
   workTimer: CountdownTimer;
   shortBreakTimer: CountdownTimer;
   longBreakTimer: CountdownTimer;
   activeTabIndex: number | null;
+  private ngUnsubscribe = new Subject<void>();
 
-  constructor(
-    private notifier: NotificationService,
-    private session: SessionService,
-    private settings: SettingsService,
-    private changeDetector: ChangeDetectorRef
-  ) {
-    this.handleWorkTimerComplete = this.handleWorkTimerComplete.bind(this);
-    this.handleShortBreakTimerComplete = this.handleShortBreakTimerComplete.bind(this);
-    this.handleLongBreakTimerComplete = this.handleShortBreakTimerComplete.bind(this);
+  constructor(private cdRef: ChangeDetectorRef, private pomodoro: PomodoroService) {
+    this.setActiveTab = this.setActiveTab.bind(this);
+    this.workTimer = this.pomodoro.workTimer;
+    this.shortBreakTimer = this.pomodoro.shortBreakTimer;
+    this.longBreakTimer = this.pomodoro.longBreakTimer;
   }
 
   ngOnInit(): void {
-    this.workTimer = new CountdownTimer(this.settings.get(Setting.WorkLength));
-    this.workTimer.complete.subscribe(this.handleWorkTimerComplete);
-
-    this.shortBreakTimer = new CountdownTimer(this.settings.get(Setting.ShortBreakLength));
-    this.shortBreakTimer.complete.subscribe(this.handleShortBreakTimerComplete);
-
-    this.longBreakTimer = new CountdownTimer(this.settings.get(Setting.LongBreakLength));
-    this.longBreakTimer.complete.subscribe(this.handleLongBreakTimerComplete);
+    this.pomodoro.reloadSettings();
+    this.pomodoro
+      .getState()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((value) => this.setActiveTab(value));
   }
 
-  handleWorkTimerComplete(): void {
-    this.notifier.sendNotificationIfDesired('Work session completed');
-    this.workTimer.stop();
-    this.incrementPomodoroCount();
-    const numPomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0);
-    if (numPomodoros % 4 === 0) {
-      this.setLongBreakTabActive();
-    } else {
-      this.setShortBreakTabActive();
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  setActiveTab(state: 'work' | 'short' | 'long'): void {
+    switch (state) {
+      case 'work':
+        this.activeTabIndex = 0;
+        break;
+      case 'short':
+        this.activeTabIndex = 1;
+        break;
+      case 'long':
+        this.activeTabIndex = 2;
     }
-  }
-
-  handleShortBreakTimerComplete(): void {
-    this.notifier.sendNotificationIfDesired('Break is over');
-    this.shortBreakTimer.stop();
-    this.setWorkTabActive();
-  }
-
-  handleLongBreakTimerComplete(): void {
-    this.notifier.sendNotificationIfDesired('Break is over');
-    this.longBreakTimer.stop();
-    this.setWorkTabActive();
-  }
-
-  incrementPomodoroCount(): void {
-    const pomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0) + 1;
-    this.session.set(SessionSetting.NumberOfPomodoros, pomodoros);
-  }
-
-  setWorkTabActive(): void {
-    this.activeTabIndex = 0;
-    this.changeDetector.detectChanges();
-  }
-
-  setShortBreakTabActive(): void {
-    this.activeTabIndex = 1;
-    this.changeDetector.detectChanges();
-  }
-
-  setLongBreakTabActive(): void {
-    this.activeTabIndex = 2;
-    this.changeDetector.detectChanges();
+    this.cdRef.detectChanges();
   }
 
 }

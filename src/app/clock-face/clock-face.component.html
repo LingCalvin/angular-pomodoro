@@ -3,19 +3,11 @@
   and it's not paired with an element like mat-progress-spinner.
 -->
 <!-- NOTE: Does not handle times above 59 minutes and 59 seconds. -->
-<ng-container *ngIf="timer.timer$ | async as timeRemaining; else initial">
+<ng-container *ngIf="time$ | async as timeRemaining">
   <mat-progress-spinner [value]="timeRemaining / timer.duration * 100"
-    [diameter]="192" [strokeWidth]="8">
+    [diameter]="192" [strokeWidth]="4">
   </mat-progress-spinner>
   <div>
     {{timeRemaining | date : "mm:ss"}}
   </div>
 </ng-container>
-
-<ng-template #initial>
-  <mat-progress-spinner [value]="100" [diameter]="192" [strokeWidth]="8">
-  </mat-progress-spinner>
-  <div>
-    {{timer.duration | date : "mm:ss"}}
-  </div>
-</ng-template>

@@ -17,7 +17,7 @@
   <mat-list-item>
     Show notifications only if hidden
     <span class="spacer"></span>
-    <mat-slide-toggle [formControl]="onlyShowNotificationsIfHiddenControl">
+    <mat-slide-toggle [formControl]="onlyShowNotificationsIfHiddenCtrl">
     </mat-slide-toggle>
   </mat-list-item>
 
@@ -30,7 +30,7 @@
     <span class="spacer"></span>
     <mat-form-field color="accent">
       <input matInput type="number" min="0" [max]="maxTime"
-        [formControl]="workSessionLengthControl">
+        [formControl]="workSessionLengthCtrl">
       <mat-hint>Minutes</mat-hint>
     </mat-form-field>
   </mat-list-item>
@@ -40,7 +40,7 @@
     <span class="spacer"></span>
     <mat-form-field color="accent">
       <input matInput type="number" min="0" [max]="maxTime"
-        [formControl]="shortBreakLengthControl">
+        [formControl]="shortBreakLengthCtrl">
       <mat-hint>Minutes</mat-hint>
     </mat-form-field>
   </mat-list-item>
@@ -50,7 +50,7 @@
     <span class="spacer"></span>
     <mat-form-field color="accent">
       <input matInput type="number" min="0" [max]="maxTime"
-        [formControl]="longBreakLengthControl">
+        [formControl]="longBreakLengthCtrl">
       <mat-hint>Minutes</mat-hint>
     </mat-form-field>
   </mat-list-item>

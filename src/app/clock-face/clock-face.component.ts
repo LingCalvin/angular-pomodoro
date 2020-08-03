@@ -10,10 +10,12 @@ import { CountdownTimer } from '../countdown-timer';
 export class ClockFaceComponent implements OnInit {
 
   @Input() timer: CountdownTimer;
+  time$: Observable<number>;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.time$ = this.timer.getTimeObservable();
   }
 
 }

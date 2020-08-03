@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationService } from '../notification.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { SettingsService } from '../settings.service';
@@ -6,31 +6,45 @@ import { Setting } from '../setting.enum';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, Validators } from '@angular/forms';
 import { toMilliseconds } from '../to-milliseconds';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
   maxTime = 59.99;
   private timeValidators = Validators.compose([Validators.required, Validators.min(0), Validators.max(this.maxTime)]);
   notificationsEnabled = false;
-  onlyShowNotificationsIfHiddenControl = new FormControl();
-  workSessionLengthControl = new FormControl('', this.timeValidators);
-  shortBreakLengthControl = new FormControl('', this.timeValidators);
-  longBreakLengthControl = new FormControl('', this.timeValidators);
+  onlyShowNotificationsIfHiddenCtrl = new FormControl();
+  workSessionLengthCtrl = new FormControl('', this.timeValidators);
+  shortBreakLengthCtrl = new FormControl('', this.timeValidators);
+  longBreakLengthCtrl = new FormControl('', this.timeValidators);
+  private refreshRequiredNotified = false;
+  private ngUnsubscribe = new Subject<void>();
 
-  constructor(private notifiction: NotificationService, private settings: SettingsService, private snackBar: MatSnackBar) { }
+  constructor(
+    private notifiction: NotificationService,
+    private settings: SettingsService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
-    this.notificationsEnabled = Notification.permission === 'granted' && this.settings.get(Setting.EnableNotifications);
+    this.notificationsEnabled = Notification.permission === 'granted'
+      && this.settings.get(Setting.EnableNotifications);
     const timeMaps = [this.minutesToMilliseconds, this.millisecondsToMinutes];
-    this.keepSynced(this.onlyShowNotificationsIfHiddenControl, Setting.OnlyShowNotificationsIfHidden);
-    this.keepSynced(this.workSessionLengthControl, Setting.WorkLength, ...timeMaps);
-    this.keepSynced(this.shortBreakLengthControl, Setting.ShortBreakLength, ...timeMaps);
-    this.keepSynced(this.longBreakLengthControl, Setting.LongBreakLength, ...timeMaps);
+
+    this.keepSynced(this.workSessionLengthCtrl, Setting.WorkLength, ...timeMaps);
+    this.keepSynced(this.shortBreakLengthCtrl, Setting.ShortBreakLength, ...timeMaps);
+    this.keepSynced(this.longBreakLengthCtrl, Setting.LongBreakLength, ...timeMaps);
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   keepSynced(
@@ -44,16 +58,18 @@ export class SettingsComponent implements OnInit {
       settingValue = settingToFormMap(settingValue);
     }
     formControl.setValue(settingValue);
-    formControl.valueChanges.subscribe((value) => {
-      if (!formControl.valid) {
-        return;
-      }
-      if (formToSettingMap) {
-        this.settings.set(setting, formToSettingMap(value));
-      } else {
-        this.settings.set(setting, value);
-      }
-    });
+    formControl.valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((value) => {
+        if (!formControl.valid) {
+          return;
+        }
+        if (formToSettingMap) {
+          this.settings.set(setting, formToSettingMap(value));
+        } else {
+          this.settings.set(setting, value);
+        }
+      });
   }
 
   handleNotificationToggle(change: MatSlideToggleChange): void {
@@ -62,11 +78,22 @@ export class SettingsComponent implements OnInit {
         this.settings.set(Setting.EnableNotifications, perm === 'granted');
         if (perm !== 'granted') {
           change.source.toggle();
-          this.snackBar.open('Failed to acquire permission to display notifications.', 'Dismiss', { duration: 5000 });
+          this.snackBar
+            .open('Failed to acquire permission to display notifications.',
+              'Dismiss',
+              { duration: 5000 });
         }
       });
     } else {
       this.settings.set(Setting.EnableNotifications, false);
+    }
+  }
+
+  notifyRefreshRequired(): void {
+    if (!this.refreshRequiredNotified) {
+      this.snackBar
+        .open('A refresh is required to apply your changes.', 'Dismiss');
+      this.refreshRequiredNotified = true;
     }
   }
 

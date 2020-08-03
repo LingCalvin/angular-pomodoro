@@ -14,24 +14,23 @@ export class NotificationService {
     return Notification.requestPermission();
   }
 
-  sendNotification(title: string, options?: NotificationOptions): void {
+  send(title: string, options?: NotificationOptions): void {
     this.requestPermission().then((perm) => {
       if (perm === 'granted') {
         this.notify(title, options);
       }
-
     });
   }
 
-  sendNotificationIfDesired(title: string, options?: NotificationOptions): void {
+  sendIfDesired(title: string, options?: NotificationOptions): void {
     if (!this.settings.get<boolean>(Setting.EnableNotifications)) {
       return;
     }
 
     if (!this.settings.get<boolean>(Setting.OnlyShowNotificationsIfHidden)) {
-      this.sendNotification(title, options);
+      this.send(title, options);
     } else if (document.hidden) {
-      this.sendNotification(title, options);
+      this.send(title, options);
     }
   }
 

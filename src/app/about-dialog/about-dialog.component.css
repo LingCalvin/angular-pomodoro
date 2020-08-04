@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.app-name {
+  margin: 0;
+}
+
+.logo {
+  max-width: 48px;
+}

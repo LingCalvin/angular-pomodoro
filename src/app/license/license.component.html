@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <a routerLink="/" mat-icon-button>
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <span>License</span>
+</mat-toolbar>
+
+<div class="content">
+  <pre>{{license$ | async}}</pre>
+</div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AboutDialogueComponent } from '../about-dialogue/about-dialogue.component';
+import { AboutDialogComponent } from '../about-dialog/about-dialog.component';
 
 @Component({
   selector: 'app-index-toolbar',
@@ -12,7 +12,7 @@ export class IndexToolbarComponent {
   constructor(private dialog: MatDialog) { }
 
   showAboutDialog(): void {
-    this.dialog.open(AboutDialogueComponent);
+    this.dialog.open(AboutDialogComponent, {maxWidth: '90vw'});
   }
 
 }

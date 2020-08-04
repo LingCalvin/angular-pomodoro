@@ -1,6 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,23 +28,30 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AboutDialogComponent } from './about-dialog/about-dialog.component';
+import { LicenseComponent } from './license/license.component';
+import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-licenses.component';
 
 @NgModule({
   declarations: [
+    AboutDialogComponent,
     AppComponent,
     CountdownComponent,
     ClockFaceComponent,
     IndexComponent,
     IndexToolbarComponent,
+    LicenseComponent,
     PomodoroComponent,
-    TimerControlsComponent,
     SettingsComponent,
+    TimerControlsComponent,
+    ThirdPartyLicensesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,

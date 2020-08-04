@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1596510514091,
+  "timestamp": 1596511107598,
   "index": "/angular-pomodoro/index.html",
   "assetGroups": [
     {
@@ -10,8 +10,8 @@
       "urls": [
         "/angular-pomodoro/favicon.ico",
         "/angular-pomodoro/index.html",
-        "/angular-pomodoro/main-es2015.d776ce7b0629825de75d.js",
-        "/angular-pomodoro/main-es5.d776ce7b0629825de75d.js",
+        "/angular-pomodoro/main-es2015.8ac5e963aa436fbbe665.js",
+        "/angular-pomodoro/main-es5.8ac5e963aa436fbbe665.js",
         "/angular-pomodoro/manifest.webmanifest",
         "/angular-pomodoro/polyfills-es2015.f332a089ad1600448873.js",
         "/angular-pomodoro/polyfills-es5.177e85a9724683782539.js",
@@ -52,12 +52,12 @@
     "/angular-pomodoro/assets/icons/icon-512x512.png": "53f1bbe4ce56910dca28beab46fa6c7ac42ea072",
     "/angular-pomodoro/assets/icons/icon-72x72.png": "72077ec1d33039ced0d6bc61d7987c9629291824",
     "/angular-pomodoro/assets/icons/icon-96x96.png": "917d7738336ed9d3acfea2748c28444754111264",
-    "/angular-pomodoro/assets/icons/icon.svg": "95f329297b12b6843230c379676c333f7fbf3699",
+    "/angular-pomodoro/assets/icons/icon.svg": "f26cf8f6a2179ac7e6c52045f43a849847a88a1a",
     "/angular-pomodoro/favicon.ico": "1256faf4ea1611c616a82345bef2076fd1ce5ef8",
     "/angular-pomodoro/favicon.svg": "f26cf8f6a2179ac7e6c52045f43a849847a88a1a",
-    "/angular-pomodoro/index.html": "19251c898fbe0b78695cb320abd59c036ff06bde",
-    "/angular-pomodoro/main-es2015.d776ce7b0629825de75d.js": "dd7b301b9352f82f419b37c1acf5fdcdc35a6783",
-    "/angular-pomodoro/main-es5.d776ce7b0629825de75d.js": "659b7c2680ea442a89345e7047ff96cdf2d3cfb4",
+    "/angular-pomodoro/index.html": "d85385e4f8e6c27635d60fe348a68d6d7eb2c10f",
+    "/angular-pomodoro/main-es2015.8ac5e963aa436fbbe665.js": "f5a672739942fd71df74bc25b24a77485cce68e6",
+    "/angular-pomodoro/main-es5.8ac5e963aa436fbbe665.js": "12b67cc1861273f371fd219e8317bd6c793605de",
     "/angular-pomodoro/manifest.webmanifest": "d508279c9cf2a469fbb9aa06b5c3c2a7b41ef02a",
     "/angular-pomodoro/polyfills-es2015.f332a089ad1600448873.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
     "/angular-pomodoro/polyfills-es5.177e85a9724683782539.js": "8aa26ea87b9958c6bd13b7c257c0e9940438e684",

@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private timeValidators = Validators.compose([Validators.required, Validators.min(0), Validators.max(this.maxTime)]);
   notificationsEnabled = false;
   onlyShowNotificationsIfHiddenCtrl = new FormControl();
+  enableNotificationSoundControl = new FormControl();
   workSessionLengthCtrl = new FormControl('', this.timeValidators);
   shortBreakLengthCtrl = new FormControl('', this.timeValidators);
   longBreakLengthCtrl = new FormControl('', this.timeValidators);
@@ -40,6 +41,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.keepSynced(this.workSessionLengthCtrl, Setting.WorkLength, ...timeMaps);
     this.keepSynced(this.shortBreakLengthCtrl, Setting.ShortBreakLength, ...timeMaps);
     this.keepSynced(this.longBreakLengthCtrl, Setting.LongBreakLength, ...timeMaps);
+    this.keepSynced(this.enableNotificationSoundControl, Setting.EnableNotificationSound);
   }
 
   ngOnDestroy(): void {

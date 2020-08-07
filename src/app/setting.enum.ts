@@ -3,5 +3,6 @@ export enum Setting {
     ShortBreakLength = 'SHORT_BREAK_LENGTH',
     LongBreakLength = 'LONG_BREAK_LENGTH',
     EnableNotifications = 'ENABLE_NOTIFICATIONS',
-    OnlyShowNotificationsIfHidden = 'ONLY_SHOW_NOTIFICATIONS_IF_HIDDEN'
+    OnlyShowNotificationsIfHidden = 'ONLY_SHOW_NOTIFICATIONS_IF_HIDDEN',
+    EnableNotificationSound = 'ENABLE_NOTIFICATION_SOUND'
 }

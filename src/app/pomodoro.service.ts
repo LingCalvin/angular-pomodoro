@@ -48,7 +48,7 @@ export class PomodoroService implements OnDestroy {
   }
 
   onWorkTimerComplete(): void {
-    this.notifier.sendIfDesired('Work session completed');
+    this.notifier.checkPreferencesAndSend('Work session completed');
     this.workTimer.stop();
     this.incrementPomodoroCount();
     const numPomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0);
@@ -60,13 +60,13 @@ export class PomodoroService implements OnDestroy {
   }
 
   onShortBreakTimerComplete(): void {
-    this.notifier.sendIfDesired('Break is over');
+    this.notifier.checkPreferencesAndSend('Break is over');
     this.shortBreakTimer.stop();
     this.stateSubject.next('work');
   }
 
   onLongBreakTimerComplete(): void {
-    this.notifier.sendIfDesired('Break is over');
+    this.notifier.checkPreferencesAndSend('Break is over');
     this.longBreakTimer.stop();
     this.stateSubject.next('work');
   }

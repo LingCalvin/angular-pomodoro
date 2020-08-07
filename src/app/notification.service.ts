@@ -8,7 +8,11 @@ import { isDevMode } from '@angular/core';
 })
 export class NotificationService {
 
-  constructor(private settings: SettingsService) { }
+  notificationSound: HTMLAudioElement;
+
+  constructor(private settings: SettingsService) {
+    this.notificationSound = new Audio('./assets/sounds/ping.flac');
+  }
 
   requestPermission(): Promise<NotificationPermission> {
     return Notification.requestPermission();
@@ -22,7 +26,10 @@ export class NotificationService {
     });
   }
 
-  sendIfDesired(title: string, options?: NotificationOptions): void {
+  checkPreferencesAndSend(title: string, options?: NotificationOptions): void {
+    if (this.settings.get<boolean>(Setting.EnableNotificationSound)) {
+      this.notificationSound.play();
+    }
     if (!this.settings.get<boolean>(Setting.EnableNotifications)) {
       return;
     }

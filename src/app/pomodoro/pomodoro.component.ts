@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { CountdownTimer } from '../countdown-timer';
 import { PomodoroService } from '../pomodoro.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Timer } from '../timer';
 
 @Component({
   selector: 'app-pomodoro',
@@ -11,9 +11,9 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class PomodoroComponent implements OnInit, OnDestroy {
 
-  workTimer: CountdownTimer;
-  shortBreakTimer: CountdownTimer;
-  longBreakTimer: CountdownTimer;
+  workTimer: Timer;
+  shortBreakTimer: Timer;
+  longBreakTimer: Timer;
   activeTabIndex: number | null;
   private ngUnsubscribe = new Subject<void>();
 

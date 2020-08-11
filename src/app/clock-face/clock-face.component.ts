@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CountdownTimer } from '../countdown-timer';
+import { Timer } from '../timer';
 
 @Component({
   selector: 'app-clock-face',
@@ -9,13 +9,13 @@ import { CountdownTimer } from '../countdown-timer';
 })
 export class ClockFaceComponent implements OnInit {
 
-  @Input() timer: CountdownTimer;
+  @Input() timer: Timer;
   time$: Observable<number>;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.time$ = this.timer.getTimeObservable();
+    this.time$ = this.timer.getTimeLeftObservable();
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CountdownTimer } from '../countdown-timer';
-import { tap } from 'rxjs/operators';
-import { pipe, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Timer, state } from '../timer';
 
 @Component({
   selector: 'app-countdown',
@@ -10,14 +9,14 @@ import { pipe, Observable } from 'rxjs';
 })
 export class CountdownComponent implements OnInit {
 
-  @Input() timer: CountdownTimer;
+  @Input() timer: Timer;
   showPlay = true;
   showPause = true;
   showStop = true;
-  timerState$: Observable<'running' | 'paused' | 'reset'>;
+  timerState$: Observable<state>;
 
   ngOnInit(): void {
-    this.timerState$ = this.timer.getState();
+    this.timerState$ = this.timer.getStateObservable();
   }
 
 }

@@ -1,21 +1,21 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { CountdownTimer } from './countdown-timer';
 import { SettingsService } from './settings.service';
 import { Setting } from './setting.enum';
 import { NotificationService } from './notification.service';
 import { SessionService } from './session.service';
 import { SessionSetting } from './session-setting.enum';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Timer } from './timer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PomodoroService implements OnDestroy {
 
-  workTimer: CountdownTimer;
-  shortBreakTimer: CountdownTimer;
-  longBreakTimer: CountdownTimer;
+  workTimer: Timer;
+  shortBreakTimer: Timer;
+  longBreakTimer: Timer;
   stateSubject = new BehaviorSubject<'work' | 'long' | 'short'>('work');
   private ngUnsubscribe = new Subject<void>();
 
@@ -28,14 +28,16 @@ export class PomodoroService implements OnDestroy {
     this.onShortBreakTimerComplete = this.onShortBreakTimerComplete.bind(this);
     this.onLongBreakTimerComplete = this.onLongBreakTimerComplete.bind(this);
 
-    this.workTimer = new CountdownTimer(this.settings.get(Setting.WorkLength));
-    this.shortBreakTimer = new CountdownTimer(this.settings.get(Setting.ShortBreakLength));
-    this.longBreakTimer = new CountdownTimer(this.settings.get(Setting.LongBreakLength));
+    this.workTimer = new Timer(this.settings.get(Setting.WorkLength));
+    this.shortBreakTimer = new Timer(this.settings.get(Setting.ShortBreakLength));
+    this.longBreakTimer = new Timer(this.settings.get(Setting.LongBreakLength));
 
 
     const compObs$ = [this.workTimer, this.shortBreakTimer, this.longBreakTimer]
-      .map((timer) => timer.getCompleteObservable()
-        .pipe(takeUntil(this.ngUnsubscribe)));
+      .map((timer) => {
+        return merge(timer.getCompletedObservable(), timer.getInterruptedObservable())
+          .pipe(takeUntil(this.ngUnsubscribe));
+      });
 
     compObs$[0].subscribe(this.onWorkTimerComplete);
     compObs$[1].subscribe(this.onShortBreakTimerComplete);
@@ -49,7 +51,7 @@ export class PomodoroService implements OnDestroy {
 
   onWorkTimerComplete(): void {
     this.notifier.sendIfDesired('Work session completed');
-    this.workTimer.stop();
+    this.workTimer.reset();
     this.incrementPomodoroCount();
     const numPomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0);
     if (numPomodoros % 4 === 0) {
@@ -61,13 +63,13 @@ export class PomodoroService implements OnDestroy {
 
   onShortBreakTimerComplete(): void {
     this.notifier.sendIfDesired('Break is over');
-    this.shortBreakTimer.stop();
+    this.shortBreakTimer.reset();
     this.stateSubject.next('work');
   }
 
   onLongBreakTimerComplete(): void {
     this.notifier.sendIfDesired('Break is over');
-    this.longBreakTimer.stop();
+    this.longBreakTimer.reset();
     this.stateSubject.next('work');
   }
 

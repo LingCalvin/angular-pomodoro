@@ -13,8 +13,10 @@ import { IndexToolbarComponent } from './index-toolbar/index-toolbar.component';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TimerControlsComponent } from './timer-controls/timer-controls.component';
+import { WorkCounterComponent } from './work-counter/work-counter.component';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,6 +34,7 @@ import { environment } from '../environments/environment';
 import { AboutDialogComponent } from './about-dialog/about-dialog.component';
 import { LicenseComponent } from './license/license.component';
 import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-licenses.component';
+import { ResetCounterConfirmDialogComponent } from './reset-counter-confirm-dialog/reset-counter-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,8 @@ import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-
     SettingsComponent,
     TimerControlsComponent,
     ThirdPartyLicensesComponent,
+    WorkCounterComponent,
+    ResetCounterConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,7 @@ import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-
     BrowserAnimationsModule,
     HttpClientModule,
     MatButtonModule,
+    MatChipsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
@@ -67,9 +73,11 @@ import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-
     MatTabsModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

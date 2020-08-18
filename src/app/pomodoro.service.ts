@@ -17,6 +17,7 @@ export class PomodoroService implements OnDestroy {
   shortBreakTimer: CountdownTimer;
   longBreakTimer: CountdownTimer;
   stateSubject = new BehaviorSubject<'work' | 'long' | 'short'>('work');
+  pomodorosCompletedSubject: BehaviorSubject<number>;
   private ngUnsubscribe = new Subject<void>();
 
   constructor(
@@ -40,6 +41,9 @@ export class PomodoroService implements OnDestroy {
     compObs$[0].subscribe(this.onWorkTimerComplete);
     compObs$[1].subscribe(this.onShortBreakTimerComplete);
     compObs$[2].subscribe(this.onLongBreakTimerComplete);
+
+    const pomodoros = this.session.get<number>(SessionSetting.NumberOfPomodoros, 0);
+    this.pomodorosCompletedSubject = new BehaviorSubject(pomodoros);
   }
 
   ngOnDestroy(): void {
@@ -74,10 +78,20 @@ export class PomodoroService implements OnDestroy {
   incrementPomodoroCount(): void {
     const pomodoros = this.session.get(SessionSetting.NumberOfPomodoros, 0) + 1;
     this.session.set(SessionSetting.NumberOfPomodoros, pomodoros);
+    this.pomodorosCompletedSubject.next(pomodoros);
+  }
+
+  resetPomodoroCount(): void {
+    this.session.set(SessionSetting.NumberOfPomodoros, 0);
+    this.pomodorosCompletedSubject.next(0);
   }
 
   getState(): Observable<'work' | 'short' | 'long'> {
     return this.stateSubject.asObservable();
+  }
+
+  getPomodorosCompleted(): Observable<number> {
+    return this.pomodorosCompletedSubject.asObservable();
   }
 
   reloadSettings(): void {

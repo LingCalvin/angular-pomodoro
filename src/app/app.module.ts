@@ -13,8 +13,10 @@ import { IndexToolbarComponent } from './index-toolbar/index-toolbar.component';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TimerControlsComponent } from './timer-controls/timer-controls.component';
+import { WorkCounterComponent } from './work-counter/work-counter.component';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -46,6 +48,7 @@ import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-
     SettingsComponent,
     TimerControlsComponent,
     ThirdPartyLicensesComponent,
+    WorkCounterComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-
     BrowserAnimationsModule,
     HttpClientModule,
     MatButtonModule,
+    MatChipsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,

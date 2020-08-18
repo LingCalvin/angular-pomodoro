@@ -34,6 +34,7 @@ import { environment } from '../environments/environment';
 import { AboutDialogComponent } from './about-dialog/about-dialog.component';
 import { LicenseComponent } from './license/license.component';
 import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-licenses.component';
+import { ResetCounterConfirmDialogComponent } from './reset-counter-confirm-dialog/reset-counter-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-
     TimerControlsComponent,
     ThirdPartyLicensesComponent,
     WorkCounterComponent,
+    ResetCounterConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,9 +73,11 @@ import { ThirdPartyLicensesComponent } from './third-party-licenses/third-party-
     MatTabsModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
